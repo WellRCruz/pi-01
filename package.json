@@ -57,6 +57,7 @@
   "homepage": "https://github.com/WellRCruz/pi-01#readme",
   "dependencies": {
     "bootstrap": "^5.3.6",
-    "electron": "^36.3.2"
+    "electron": "^36.3.2",
+    "mongoose": "^8.15.1"
   }
 }
