@@ -4,6 +4,7 @@
   "description": "01° Projeto Integrador - (Lavanderia com ordens de serviços e cadastros de clientes).",
   "main": "main.js",
   "scripts": {
+    "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -58,6 +59,7 @@
   "dependencies": {
     "bootstrap": "^5.3.6",
     "electron": "^36.3.2",
+    "jspdf": "^3.0.1",
     "mongoose": "^8.15.1"
   }
 }
