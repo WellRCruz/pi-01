@@ -1,0 +1,62 @@
+{
+  "name": "pi-01",
+  "version": "1.0.0",
+  "description": "01° Projeto Integrador - (Lavanderia com ordens de serviços e cadastros de clientes).",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WellRCruz/pi-01.git"
+  },
+  "keywords": [
+    "lavanderia",
+    "gestão",
+    "de",
+    "lavanderia",
+    "sistema",
+    "para",
+    "lavanderia",
+    "controle",
+    "de",
+    "roupas",
+    "controle",
+    "de",
+    "clientes",
+    "lavagem",
+    "de",
+    "roupas",
+    "serviços",
+    "de",
+    "lavanderia",
+    "atendimento",
+    "ao",
+    "cliente",
+    "cadastro",
+    "de",
+    "clientes",
+    "etiqueta",
+    "de",
+    "roupas",
+    "recebimento",
+    "de",
+    "roupas",
+    "ordem",
+    "de",
+    "serviço",
+    "emissão",
+    "de",
+    "os"
+  ],
+  "author": "Wellington R. Cruz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/WellRCruz/pi-01/issues"
+  },
+  "homepage": "https://github.com/WellRCruz/pi-01#readme",
+  "dependencies": {
+    "bootstrap": "^5.3.6",
+    "electron": "^36.3.2"
+  }
+}
