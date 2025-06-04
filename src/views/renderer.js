@@ -11,6 +11,10 @@ function client() {
     //uso da api(autorizada no preload.js)
     api.clientWindow()
 }
+// Envio de uma mensagem para o main abrir a janela os Ordem de Serviço
+function os() {
+    api.clientWindow()
+}
 
 // Troca do ícone do banco de dados (usando a api do preload.js)
 api.dbStatus((event, message) => {

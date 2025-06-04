@@ -90,6 +90,30 @@ function clientWindow() {
     client.center() //iniciar no centro da tela   
 }
 
+// Janela OS - Ordem de Serviço
+let os
+function osWindow() {
+    nativeTheme.themeSource = 'light'
+    const main = BrowserWindow.getFocusedWindow()
+    if (main) {
+        client = new BrowserWindow({
+            width: 1010,
+            height: 680,
+            //autoHideMenuBar: true,
+            //resizable: false,
+            parent: main,
+            modal: true,
+            //ativação do preload.js
+            webPreferences: {
+                preload: path.join(__dirname, 'preload.js')
+            }
+        })
+    }
+    client.loadFile('./src/views/os.html')
+    client.center() //iniciar no centro da tela   
+}
+
+
 // Iniciar a aplicação
 app.whenReady().then(() => {
     createWindow()
