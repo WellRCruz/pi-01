@@ -1,48 +1,28 @@
-/**
- * Módulo de conexão com o banco de dados
- * Uso do framework mongoose
- */
-
-// importação do mongoose
-// Não esquecer de instalar o módulo (npm i mongoose)
 const mongoose = require('mongoose')
 
-// configuração do banco de dados
-// ip/link do servidor, autenticação 
-// ao final da url definir o nome do banco de dados
-// exemplo: /dbnotes
 const url = 'mongodb+srv://admin:123Senac@cluster0.tvons.mongodb.net/pi-01'
 
-// validação (evitar a abertura de várias conexões)
 let conectado = false
 
-// método para conectar com o banco de dados
-const conectar = async () => {
-    // se não estiver conectado
-    if (!conectado) {
-        //conectar com o banco de dados
+const conectar = async () => {    
+    if (!conectado) {       
         try {
-            await mongoose.connect(url) //conectar
-            conectado = true //setar a variável
-            console.log("MongoDB conectado")
-            return true //verificação para o main
-        } catch (error) {
-            console.log(error)
-            return false           
+            await mongoose.connect(url)
+            conectado = true            
+            return true
+        } catch (error) {              
+                console.log(error)            
+            return false
         }
     }
 }
 
-// método para desconectar do banco de dados
-const desconectar = async () => {
-    // se estiver conectado
-    if (conectado) {
-        // desconectar
+const desconectar = async () => {   
+    if (conectado) {               
         try {
-            await mongoose.disconnect(url) //desconectar
-            conectado = false //setar a variável
-            console.log("MongoDB desconectado")
-            return true
+            await mongoose.disconnect(url)
+            conectado = false           
+            return true 
         } catch (error) {
             console.log(error)
             return false
@@ -50,5 +30,4 @@ const desconectar = async () => {
     }
 }
 
-//exportar para o main os métodos conectar e desconectar
 module.exports = { conectar, desconectar }
