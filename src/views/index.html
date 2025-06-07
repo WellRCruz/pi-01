@@ -2,28 +2,117 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lavanderia One</title>
-    <link rel="stylesheet" href="../public/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../public/css/style.css">
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline'">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lavanderia One</title>
+  <link rel="stylesheet" href="../public/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../public/css/style.css" />
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline'" />
+  <style>
+    /* Exemplo simples: cores e estrutura */
+    body {
+      background-color: #1e2a38; /* fundo escuro */
+      color: #f0f0f0; /* texto claro */
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .container.button {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      margin-top: 80px;
+    }
+
+    .container.button img {
+      width: 140px;
+      cursor: pointer;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .container.button img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    footer {
+      background-color: #2c3e50;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    #dataAtual {
+      font-family: monospace;
+      color: #a0c4ff;
+    }
+
+    #statusdb {
+      width: 28px;
+      filter: drop-shadow(1px 1px 1px #000);
+    }
+  </style>
 </head>
 
 <body>
-    <div class="container button">
-        <img src="../public/img/cadastroCliente.png" alt="clientes" title="Cadastro de clientes" onclick="client()">
-        <img src="../public/img/os.png" alt="computador" title="Emissão de OS" onclick="os()">
-       
-    </div>
-    <footer>
-        <p id="dataAtual"></p>
-        <img src="../public/img/dboff.png" alt="dbicon" id="statusdb">
-    </footer>
+  <div class="container button">
+    <img src="../public/img/cadastroCliente.png" alt="clientes" title="Cadastro de clientes" onclick="client()" />
+    <img src="../public/img/os.png" alt="computador" title="Emissão de OS" onclick="os()" />
+  </div>
 
-    <script src="../public/js/bootstrap.min.js"></script>
-    <script src="../public/js/script.js"></script>
-    <script src="renderer.js"></script>
+  <footer>
+    <p id="dataAtual">--:--:--</p>
+    <img src="../public/img/dboff.png" alt="Banco desconectado" id="statusdb" />
+  </footer>
+
+  <script src="../public/js/bootstrap.min.js"></script>
+  <script src="../public/js/script.js"></script>
+  <script src="renderer.js"></script>
+
+  <script>
+    // Exemplo de atualização do horário a cada segundo
+    function atualizarHora() {
+      const el = document.getElementById('dataAtual');
+      const agora = new Date();
+      // Exemplo: formato HH:MM:SS
+      const hora = agora.toLocaleTimeString('pt-BR', { hour12: false });
+      el.textContent = hora;
+    }
+    setInterval(atualizarHora, 1000);
+    atualizarHora();
+
+    // Exemplo: função para atualizar o status do banco
+    function atualizarStatusDB(conectado) {
+      const img = document.getElementById('statusdb');
+      if (conectado) {
+        img.src = '../public/img/dbon.png';
+        img.alt = 'Banco conectado';
+        img.style.filter = 'drop-shadow(0 0 6px #00ff00)';
+      } else {
+        img.src = '../public/img/dboff.png';
+        img.alt = 'Banco desconectado';
+        img.style.filter = 'drop-shadow(0 0 6px #ff0000)';
+      }
+    }
+
+    // Exemplo de uso: simular conexão/desconexão
+    // substituir pela lógica real do seu app
+    let conectado = false;
+    setInterval(() => {
+      conectado = !conectado;
+      atualizarStatusDB(conectado);
+    }, 5000);
+  </script>
 </body>
 
 </html>

@@ -47,44 +47,75 @@
                     disabled>
             </div>
             <input type="text" id="idClient">
-            <hr class="mt-4 border border-secondary border -1">
-            <div class="col-md-3">
-                <label class="form-label">Status da OS</label>
-                <select class="form-select" id="inputStatus" required>
-                    <option value="">Selecione</option>
-                    <option>Aberta</option>
-                    <option>Em andamento</option>
-                    <option>Aguardando peças</option>
-                    <option>Finalizada</option>
-                    <option>Cancelada</option>
-                </select>
+<hr class="mt-4 border border-secondary border-1">
+
+<div class="col-md-3">
+    <label class="form-label">Status do Serviço</label>
+    <select class="form-select" id="inputStatus" required>
+        <option value="">Selecione</option>
+        <option>Recebido</option>
+        <option>Em lavagem</option>
+        <option>Pronto</option>
+        <option>Entregue</option>
+        <option>Cancelada</option>
+    </select>
+</div>
+
+<div class="col-md-6">
+    <label class="form-label" for="inputClothes">Tipos de roupa</label>
+    <!-- Campo do Cliente -->
+    <div class="col-md-6">
+        <label class="form-label" for="idClient">Nome do Cliente</label>
+        <input type="text" class="form-control" id="idClient" placeholder="Digite o nome do cliente" required>
+    </div>
+
+<!-- Campo dos Tipos de Roupa -->
+<div class="col-md-6 mt-3">
+    <label class="form-label" for="inputClothes">Tipos de roupa</label>
+    <select class="form-select" id="inputClothes" multiple required>
+        <option value="Camisa">Camisa</option>
+        <option value="Calça">Calça</option>
+        <option value="Vestido">Vestido</option>
+        <option value="Saia">Saia</option>
+        <option value="Terno">Terno</option>
+        <option value="Lençol">Lençol</option>
+        <option value="Toalha">Toalha</option>
+    </select>
+</div>
+
+<!-- Botão para gerar Ordens -->
+<div class="col-md-6 mt-3">
+    <button type="button" class="btn btn-primary" onclick="gerarOrdens()">Gerar Ordens</button>
+</div>
+
+<!-- Resultado -->
+<div id="resultadoOrdens" class="mt-4"></div>
+</div>
+
+<div id="resultadoOrdens" class="mt-4"></div>
             </div>
-            <div class="col-md-6">
-                <label class="form-label" for="inputComputer">Equipamento / Modelo</label>
-                <input type="text" class="form-control" id="inputComputer" maxlength="44" required>
-            </div>
             <div class="col-md-3">
-                <label class="form-label" for="inputSerial">Número de série</label>
+                <label class="form-label" for="inputSerial">Etiqueta interna</label>
                 <input type="text" class="form-control" id="inputSerial" maxlength="20">
             </div>
             <div class="col-md-7">
-                <label class="form-label" for="inputProblem">Problema relatado</label>
+                <label class="form-label" for="inputProblem">Observações visuais</label>
                 <input type="text" class="form-control" id="inputProblem" maxlength="54" required>
             </div>
             <div class="col-md-5">
-                <label class="form-label" for="inputObs">Observações</label>
+                <label class="form-label" for="inputObs">Observações adicionais</label>
                 <input type="text" class="form-control" id="inputObs" maxlength="35">
             </div>
             <div class="col-md-3">
-                <label class="form-label" for="inputSpecialist">Técnico</label>
+                <label class="form-label" for="inputSpecialist">Funcionário</label>
                 <input type="text" class="form-control" id="inputSpecialist" maxlength="20">
             </div>
             <div class="col-md-9">
-                <label class="form-label" for="inputDiagnosis">Diagnóstico técnico</label>
+                <label class="form-label" for="inputDiagnosis">Tipo de serviço</label>
                 <input type="text" class="form-control" id="inputDiagnosis" maxlength="60">
             </div>
             <div class="col-md-9">
-                <label class="form-label" for="inputParts">Peças</label>
+                <label class="form-label" for="inputParts">Produtos ou adicionais</label>
                 <input type="text" class="form-control" id="inputParts" maxlength="80">
             </div>
             <div class="col-md-3">
@@ -105,6 +136,49 @@
 
     <!-- renderizador -->
     <script src="rendererOs.js"></script>
+
+    <script>
+        const clientesCadastrados = ['João Silva', 'Maria Oliveira', 'Ana Santos', 'Carlos Lima'];
+        
+        function clienteValido(nome) {
+            return clientesCadastrados.includes(nome.trim());
+        }
+        
+        function gerarOrdens() {
+            const nomeCliente = document.getElementById('idClient').value.trim();
+            const roupasSelecionadas = Array.from(document.getElementById('inputClothes').selectedOptions).map(opt => opt.value);
+            const container = document.getElementById('resultadoOrdens');
+            container.innerHTML = '';
+        
+            if (!nomeCliente) {
+                container.innerHTML = '<p class="text-danger">Por favor, insira o nome do cliente.</p>';
+                return;
+            }
+        
+            if (!clienteValido(nomeCliente)) {
+                container.innerHTML = `<p class="text-danger">Cliente <strong>${nomeCliente}</strong> não encontrado. Verifique o nome digitado.</p>`;
+                return;
+            }
+        
+            if (roupasSelecionadas.length === 0) {
+                container.innerHTML = '<p class="text-danger">Por favor, selecione pelo menos um tipo de roupa.</p>';
+                return;
+            }
+        
+            roupasSelecionadas.forEach((roupa, index) => {
+                const ordemHTML = `
+                    <div class="card mb-3 p-3 border border-secondary shadow-sm">
+                        <h5 class="mb-2">Ordem de Serviço #${index + 1}</h5>
+                        <p><strong>Cliente:</strong> ${nomeCliente}</p>
+                        <p><strong>Tipo de roupa:</strong> ${roupa}</p>
+                        <p><strong>Status:</strong> Aguardando lavagem</p>
+                    </div>
+                `;
+                container.innerHTML += ordemHTML;
+            });
+        }
+        </script>
+        
 
 </body>
 
